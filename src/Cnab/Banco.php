@@ -9,6 +9,9 @@ class Banco
     const CEF = 104;
     const BRADESCO = 237;
     const ITAU = 341;
+    //Start By Wemerson Januario
+    const SICOOB = 756;
+    //End By Wemerson Januario
 
     public static function getBanco($codigo)
     {
@@ -37,6 +40,13 @@ class Banco
                 'codigo_do_banco' => self::BRADESCO,
                 'nome_do_banco' => 'BRADESCO',
             );
+            //Start By Wemerson Januario
+        } elseif ($codigo == self::SICOOB) {
+            return array(
+                'codigo_do_banco' => self::SICOOB,
+                'nome_do_banco' => 'BANCOOBCED',
+            );
+            //End By Wemerson Januario
         } else {
             return false;
         }
