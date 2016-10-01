@@ -140,7 +140,8 @@ class Arquivo implements \Cnab\Remessa\IArquivo
                 $detalhe->agencia_cobradora = $this->header->agencia . $this->header->agencia_dv;
                 $detalhe->conta_dv = $boleto['conta_dv'];
                 $detalhe->aceite = empty($boleto['aceite']) ? '0' : $boleto['aceite'];
-                $detalhe->qtde_moeda = '9';
+                $detalhe->codigo_moeda = '9';
+                $detalhe->qtde_moeda = '0';
                 //End By Wemerson Januario
             } else {
                 $detalhe->agencia = $this->header->agencia;
