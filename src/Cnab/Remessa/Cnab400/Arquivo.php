@@ -27,7 +27,7 @@ class Arquivo implements \Cnab\Remessa\IArquivo
     {
         $campos = array(
             'data_geracao', 'data_gravacao', 'nome_fantasia', 'razao_social', 'cnpj', 'logradouro', 'numero', 'bairro',
-            'cidade', 'uf', 'cep', 'agencia','conta'
+            'cidade', 'uf', 'cep', 'agencia', 'conta'
         );
 
         switch ($this->codigo_banco) {
@@ -123,7 +123,7 @@ class Arquivo implements \Cnab\Remessa\IArquivo
 
             $detalhe->codigo_inscricao = 2;
             $detalhe->numero_inscricao = $this->prepareText($this->configuracao['cnpj'], '.-/');
-
+            $detalhe->aceite = empty($boleto['aceite']) ? 'N' : $boleto['aceite'];
 
             if (\Cnab\Banco::BRADESCO == $this->codigo_banco) {
                 $detalhe->codigo_cedente = $this->header->codigo_cedente;
@@ -139,6 +139,8 @@ class Arquivo implements \Cnab\Remessa\IArquivo
                 $detalhe->agencia = $this->header->agencia;
                 $detalhe->agencia_cobradora = $this->header->agencia . $this->header->agencia_dv;
                 $detalhe->conta_dv = $boleto['conta_dv'];
+                $detalhe->aceite = empty($boleto['aceite']) ? '0' : $boleto['aceite'];
+                $detalhe->qtde_moeda = '9';
                 //End By Wemerson Januario
             } else {
                 $detalhe->agencia = $this->header->agencia;
@@ -177,7 +179,6 @@ class Arquivo implements \Cnab\Remessa\IArquivo
                 ? $boleto['uso_empresa']
                 : $boleto['nosso_numero'];
             $detalhe->nosso_numero = $boleto['nosso_numero'];
-            $detalhe->aceite = empty($boleto['aceite']) ? 'N' : $boleto['aceite'];
             $detalhe->numero_carteira = $boleto['carteira'];
             $detalhe->numero_documento = $boleto['numero_documento'];
             $detalhe->vencimento = $dateVencimento->format('dmy');
