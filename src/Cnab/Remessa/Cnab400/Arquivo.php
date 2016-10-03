@@ -39,14 +39,12 @@ class Arquivo implements \Cnab\Remessa\IArquivo
                 $campos[] = 'codigo_cedente';
                 $campos[] = 'sequencial_remessa';
                 break;
-            //Start By Wemerson Januario
             case \Cnab\Banco::SICOOB:
                 //Sicoob não usa o campo conta no header
                 unset($campos['conta']);
                 $campos[] = 'codigo_cliente';
                 $campos[] = 'codigo_cliente_dv';
                 break;
-            //End By wemerson Januario
             default:
                 $campos[] = 'conta_dac';
                 break;
@@ -87,12 +85,10 @@ class Arquivo implements \Cnab\Remessa\IArquivo
                 $this->header->sequencial_remessa = $this->configuracao['sequencial_remessa'];
                 $this->header->razao_social = $this->configuracao['razao_social'];
                 break;
-            //Start By Wemerson Januario
             case \Cnab\Banco::SICOOB:
                 $this->header->codigo_cliente = $this->configuracao['codigo_cliente'];
                 $this->header->codigo_cliente_dv = $this->configuracao['codigo_cliente_dv'];
                 break;
-            //End By Wemerson Januario
             default:
                 $this->header->conta_dv = $this->configuracao['conta_dac'];
                 break;
@@ -115,12 +111,6 @@ class Arquivo implements \Cnab\Remessa\IArquivo
         if ($tipo == 'remessa') {
             $detalhe->codigo_ocorrencia = !empty($boleto['codigo_de_ocorrencia']) ? $boleto['codigo_de_ocorrencia'] : '1';
 
-            //TODO Anderson e para os casos de emissão de remessas para que é CPF como que fica?
-            //Pessoa fisica também tem carteira de cobrança (Itaú por exemplo)
-            //Acho que deve fazer um IF para verificar o tipo de inscrição do cedente
-            //Question by Wemerson Januario (wemerson.januario@gmail.com)
-
-
             $detalhe->codigo_inscricao = 2;
             $detalhe->numero_inscricao = $this->prepareText($this->configuracao['cnpj'], '.-/');
             $detalhe->aceite = empty($boleto['aceite']) ? 'N' : $boleto['aceite'];
@@ -133,16 +123,14 @@ class Arquivo implements \Cnab\Remessa\IArquivo
                 $detalhe->taxa_de_permanencia = $boleto['taxa_de_permanencia'];
                 $detalhe->mensagem = $boleto['mensagem'];
                 $detalhe->data_multa = $boleto['data_multa'];
-                //Start By Wemerson Januario
             } else if (\Cnab\Banco::SICOOB == $this->codigo_banco) {
                 $detalhe->conta = $boleto['conta'];
                 $detalhe->agencia = $this->header->agencia;
                 $detalhe->agencia_cobradora = $this->header->agencia . $this->header->agencia_dv;
                 $detalhe->conta_dv = $boleto['conta_dv'];
                 $detalhe->aceite = empty($boleto['aceite']) ? '0' : $boleto['aceite'];
-                $detalhe->codigo_moeda = '9';
+                $detalhe->codigo_moeda = '9';//Sicoob requer que seja 9
                 $detalhe->qtde_moeda = '0';
-                //End By Wemerson Januario
             } else {
                 $detalhe->agencia = $this->header->agencia;
                 $detalhe->conta = $this->header->conta;

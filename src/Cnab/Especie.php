@@ -44,11 +44,9 @@ class Especie
     const BB_DUPLICATA_MERCANTIL = 2;
     const BB_DUPLICATA_DE_SERVICO = 4;
 
-    //Start By Wemerson Januario
     //Sicoob
-    //TODO adicionar todas contantes do SICOOB
+    //TODO adicionar todas constantes do SICOOB
     const SICOOB_DUPLICATA_DE_SERVICO = 12;
-    //End By Wemerson Januario
 
     const CNAB240_OUTROS = '99';
 }
