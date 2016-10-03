@@ -88,6 +88,7 @@ class Arquivo implements \Cnab\Remessa\IArquivo
             case \Cnab\Banco::SICOOB:
                 $this->header->codigo_cliente = $this->configuracao['codigo_cliente'];
                 $this->header->codigo_cliente_dv = $this->configuracao['codigo_cliente_dv'];
+                $this->header->literal_servico = iconv('UTF-8', 'WINDOWS-1252', 'COBRANÇA');
                 break;
             default:
                 $this->header->conta_dv = $this->configuracao['conta_dac'];
