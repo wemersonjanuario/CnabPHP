@@ -22,7 +22,7 @@
 		
 	],
     "require-dev": {
-	    "andersondanilo/cnab_yaml": "dev-remessa-cnab400-sicoob",
+	    "andersondanilo/cnab_yaml": "dev-remessa-retorno-cnab400-sicoob",
         "phpunit/phpunit": "3.7.*",
         "phpunit/php-code-coverage": "1.2.*",
         "codeclimate/php-test-reporter": "dev-master"
