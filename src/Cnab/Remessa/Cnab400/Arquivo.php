@@ -44,6 +44,7 @@ class Arquivo implements \Cnab\Remessa\IArquivo
                 unset($campos['conta']);
                 $campos[] = 'codigo_cliente';
                 $campos[] = 'codigo_cliente_dv';
+                $campos[] = 'sequencial_remessa';
                 break;
             default:
                 $campos[] = 'conta_dac';
@@ -89,6 +90,7 @@ class Arquivo implements \Cnab\Remessa\IArquivo
                 $this->header->codigo_cliente = $this->configuracao['codigo_cliente'];
                 $this->header->codigo_cliente_dv = $this->configuracao['codigo_cliente_dv'];
                 $this->header->literal_servico = iconv('UTF-8', 'WINDOWS-1252', 'COBRANÇA');
+                $this->header->sequencial_remessa = $this->configuracao['sequencial_remessa'];
                 break;
             default:
                 $this->header->conta_dv = $this->configuracao['conta_dac'];
@@ -132,6 +134,7 @@ class Arquivo implements \Cnab\Remessa\IArquivo
                 $detalhe->aceite = empty($boleto['aceite']) ? '0' : $boleto['aceite'];
                 $detalhe->codigo_moeda = '9';//Sicoob requer que seja 9
                 $detalhe->qtde_moeda = '0';
+                $detalhe->multa = $boleto['valor_multa'];
             } else {
                 $detalhe->agencia = $this->header->agencia;
                 $detalhe->conta = $this->header->conta;
